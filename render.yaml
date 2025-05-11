@@ -1,0 +1,25 @@
+services:
+  - type: web
+    name: telegram-bot
+    env: python
+    buildCommand: ""
+    startCommand: python main.py
+    envVars:
+      - key: BOT_TOKEN
+        value: your-telegram-bot-token
+      - key: CHANNEL_USERNAME
+        value: @buxgalterlik_xizmatlari
+      - key: GROUP_ID
+        value: -1002407659338
+      - key: ADMIN_ID
+        value: 734139298
+      - key: DB_NAME
+        value: postgres
+      - key: DB_USER
+        value: postgres
+      - key: DB_PASSWORD
+        value: 12345
+      - key: DB_HOST
+        value: your-database-host
+      - key: DB_PORT
+        value: 5432
