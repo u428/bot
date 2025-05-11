@@ -152,7 +152,7 @@ async def show_menu(update_or_query, context):
         resize_keyboard=True
     )
     if isinstance(update_or_query, Update):
-        await update_or_query.message.reply_text("📋 Assalomu alekum yaxshimisiz? ...", reply_markup=keyboard)
+        await update_or_query.message.reply_text("📋 Assalomu alekum yaxshimisiz? \n\n💥Sizni koʻrib turganimdan xursandman😎\n\n📌Biz bilan BUXGALTERIYANI oʻrganib,  oʻzingizga komfort sharoitni yarating. Quyidagi menyudan kerakli boʻlimni tanlang👇👇👇👇", reply_markup=keyboard)
     else:
         await context.bot.send_message(chat_id=update_or_query.from_user.id, text="📋 Asosiy menyu:", reply_markup=keyboard)
 
@@ -160,11 +160,24 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user_id = update.effective_user.id
     text = update.message.text
     if text == "📚 Bepul kurs haqida":
-        await update.message.reply_text("⚡️Bepul kursda nimalar kutib turibdi💡\n...")
+        await update.message.reply_text("⚡️Bepul kursda nimalar kutib turibdi💡\n\n"
+        "1) Dars jadvali va mukammal reja asosida darslar tashkillashtiriladi;\n\n"
+        "2) Mavzu boʻyicha uyga vazifa beriladi, va vazifa bajarmaganlar guruhdan chetlashtiriladi.\n\n"
+        "3) Boʻlajak buxgalterlar oʻzlashtirishini monitoring test yoki amaliy vazifalar bilan tekshirilib turiladi;\n\n"
+        "4) Bugalterlar mustaqil shugʻillanishi uchun qoʻshimcha manbalar beriladi.\n\n"
+        "5) Soliq oʻzgarishlari va yangliklari berilib boriladi.\n\n"
+        "Yuqorida sanab oʻtganlarimni hammasi BEPUL. Sizdan harakat boʻlsa boʻldi. Intensiv guruh ikki oy davomida kun ora online dars boʻladi✅\n\n"
+        "💡Qani darsda qatnashishni xohlaysizmi?")
     elif text == "📝 Darsda qatnashish sharti":
-        await update.message.reply_text("🎁 Sizga berilgan takliif havoladan ...")
+        await update.message.reply_text("🎁 Sizga berilgan takliif havoladan 3 nafar tanishingiz botga start berib kanalga qoʻshilganda avtomat sizga link beriladi."
+        "Shu link orqali yopiq guruhga qo'shilib, BEPUL darslarda qatnashishingiz mumkin.\n\n ❗️Guruhda 500 kishiga joy ajratilgan ulgurub qoling🤝")
     elif text == "🔗 Taklif havolasi":
-        await update.message.reply_text(f"Sizning referal havolangiz: https://t.me/{{context.bot.username}}?start={{user_id}}")
+        await update.message.reply_text("📌BUXGALTERIYANI BEPUL O'RGANING VA O'ZINGIZ UCHUN KOMFORT SHAROITDA OYLIGI 15 MLN DAN YUQORI FIRMANI BOSHQARING🎉\n\n"
+        "⚡️Siz uchun BEPUL darslar tashkil qilinmoqda🎁\n\n"
+        "❗️Sizdan harakat boʻlsa boʻldi. Intensiv guruh ikki oy davomida kun ora online dars boʻladi✅\n\n"
+        "❗️Qani darsda qatnashishni xohlaysizmi?\n\n"
+        "📌Bu guruhga ulanish BEPUL yani sizdan hech qanday toʻlov talab qilinmaydi🤝\n\n"
+        f"•Hoziroq ulaning joylar kam\n\n Sizning referal havolangiz:👇👇👇\nhttps://t.me/{context.bot.username}?start={user_id}")
     elif text == "🎯 Ballarim":
         ballar = get_user_points(user_id)
         await update.message.reply_text(f"Sizning ballaringiz: {ballar} ball")
@@ -175,16 +188,20 @@ async def sendall(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if update.effective_user.id != ADMIN_ID:
         await update.message.reply_text("⛔️ Sizga bu buyruqdan foydalanish huquqi yo‘q.")
         return
+
     if not context.args:
         await update.message.reply_text("✉️ Xabar matnini yozing: /sendall Bu xabar barcha foydalanuvchilarga yuboriladi.")
         return
+
     message_text = " ".join(context.args)
+
     conn = psycopg2.connect(**DB_CONFIG)
     cur = conn.cursor()
     cur.execute("SELECT user_id FROM users")
     users = cur.fetchall()
     cur.close()
     conn.close()
+
     count = 0
     for user in users:
         try:
@@ -192,6 +209,7 @@ async def sendall(update: Update, context: ContextTypes.DEFAULT_TYPE):
             count += 1
         except Exception as e:
             logging.warning(f"Xatolik foydalanuvchi {user[0]} ga yuborishda: {e}")
+
     await update.message.reply_text(f"✅ {count} ta foydalanuvchiga xabar yuborildi.")
 
 def main():
