@@ -5,10 +5,11 @@ from telegram.ext import Application, CommandHandler, CallbackQueryHandler, Mess
 import psycopg2
 import logging
 
-TOKEN = os.getenv("BOT_TOKEN")
-CHANNEL_USERNAME = os.getenv("CHANNEL_USERNAME")
+TOKEN = '8198169582:AAEw63L1AViOnI9EJ_gCMdrYyVdpyfGtYbA'
+CHANNEL_USERNAME = '@buxgalterlik_xizmatlari'
 GROUP_ID = -1002407659338
-ADMIN_ID = int(os.getenv("ADMIN_ID"))
+
+ADMIN_ID = 734139298  # o'zingizning Telegram ID raqamingizni yozing
 
 DB_CONFIG = {
     'dbname': os.getenv("DB_NAME"),
