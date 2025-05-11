@@ -7,7 +7,7 @@ import logging
 
 TOKEN = os.getenv("BOT_TOKEN")
 CHANNEL_USERNAME = os.getenv("CHANNEL_USERNAME")
-GROUP_ID = int(os.getenv("GROUP_ID"))
+GROUP_ID = -1002407659338
 ADMIN_ID = int(os.getenv("ADMIN_ID"))
 
 DB_CONFIG = {
