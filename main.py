@@ -10,21 +10,14 @@ CHANNEL_USERNAME = '@buxgalterlik_xizmatlari'
 GROUP_ID = -1002407659338
 
 ADMIN_ID = 734139298  # o'zingizning Telegram ID raqamingizni yozing
-
-DB_CONFIG = {
-    'dbname': os.getenv("DB_NAME"),
-    'user': os.getenv("DB_USER"),
-    'password': os.getenv("DB_PASSWORD"),
-    'host': os.getenv("DB_HOST"),
-    'port': os.getenv("DB_PORT")
-}
+host = os.getenv("DB_HOST")
 
 logging.basicConfig(level=logging.INFO)
 
 GROUP_LINK = 'https://t.me/buxgalteriyani_organamiz'
 
 def init_db():
-    conn = psycopg2.connect(**DB_CONFIG)
+    conn = psycopg2.connect(host)
     cur = conn.cursor()
     cur.execute(''' 
         CREATE TABLE IF NOT EXISTS users (
@@ -40,7 +33,7 @@ def init_db():
     conn.close()
 
 def add_user(user_id, username, referred_by):
-    conn = psycopg2.connect(**DB_CONFIG)
+    conn = psycopg2.connect(host)
     cur = conn.cursor()
     cur.execute("SELECT 1 FROM users WHERE user_id = %s", (user_id,))
     if not cur.fetchone():
@@ -53,7 +46,7 @@ def add_user(user_id, username, referred_by):
     conn.close()
 
 def get_user_points(user_id):
-    conn = psycopg2.connect(**DB_CONFIG)
+    conn = psycopg2.connect(host)
     cur = conn.cursor()
     cur.execute("SELECT points FROM users WHERE user_id = %s", (user_id,))
     result = cur.fetchone()
@@ -62,7 +55,7 @@ def get_user_points(user_id):
     return result[0] if result else 0
 
 def has_invite_been_sent(user_id):
-    conn = psycopg2.connect(**DB_CONFIG)
+    conn = psycopg2.connect(host)
     cur = conn.cursor()
     cur.execute("SELECT invite_sent FROM users WHERE user_id = %s", (user_id,))
     result = cur.fetchone()
@@ -71,7 +64,7 @@ def has_invite_been_sent(user_id):
     return result[0] if result else False
 
 def mark_invite_as_sent(user_id):
-    conn = psycopg2.connect(**DB_CONFIG)
+    conn = psycopg2.connect(host)
     cur = conn.cursor()
     cur.execute("UPDATE users SET invite_sent = TRUE WHERE user_id = %s", (user_id,))
     conn.commit()
@@ -196,7 +189,7 @@ async def sendall(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     message_text = " ".join(context.args)
 
-    conn = psycopg2.connect(**DB_CONFIG)
+    conn = psycopg2.connect(host)
     cur = conn.cursor()
     cur.execute("SELECT user_id FROM users")
     users = cur.fetchall()

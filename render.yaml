@@ -14,12 +14,12 @@ services:
       - key: ADMIN_ID
         value: 734139298
       - key: DB_NAME
-        value: postgres
+        value: telegram_vg4s
       - key: DB_USER
-        value: postgres
+        value: post
       - key: DB_PASSWORD
-        value: 12345
+        value: tiHjT2J1dBFDwohfIXFaR1f1I38smNU2
       - key: DB_HOST
-        value: 127.0.0.1
+        value: postgresql://post:tiHjT2J1dBFDwohfIXFaR1f1I38smNU2@dpg-d0gafcjuibrs73fe5i9g-a/telegram_vg4s
       - key: DB_PORT
         value: 5432
