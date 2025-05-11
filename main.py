@@ -10,7 +10,7 @@ CHANNEL_USERNAME = '@buxgalterlik_xizmatlari'
 GROUP_ID = -1002407659338
 
 ADMIN_ID = 734139298  # o'zingizning Telegram ID raqamingizni yozing
-host = os.getenv("DB_HOST")
+host = 'postgresql://post:tiHjT2J1dBFDwohfIXFaR1f1I38smNU2@dpg-d0gafcjuibrs73fe5i9g-a/telegram_vg4s'
 
 logging.basicConfig(level=logging.INFO)
 
