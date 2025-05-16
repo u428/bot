@@ -1,0 +1,17 @@
+app = "bot-main"
+
+[env]
+  BOT_TOKEN = "8198169582:AAEw63L1AViOnI9EJ_gCMdrYyVdpyfGtYbA"
+
+[build]
+  image = "python:3.11-slim"
+
+[[services]]
+  internal_port = 8080
+  protocol = "tcp"
+
+  [[services.ports]]
+    port = 80
+
+  [[services.ports]]
+    port = 443
