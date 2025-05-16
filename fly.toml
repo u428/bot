@@ -1,4 +1,4 @@
-app = "bot-main"
+app = "telegram-bot-fly"
 
 [env]
   BOT_TOKEN = "8198169582:AAEw63L1AViOnI9EJ_gCMdrYyVdpyfGtYbA"
